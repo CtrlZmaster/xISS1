@@ -80,7 +80,7 @@ endif
 disp("Úloha 4");
 % Frekvenčná charakteristika
 [H, w] = freqz(B,A,Fs); f = (0:Fs-1)/ Fs * Fs / 2;
-figure('Name','Uloha 3 - Frekvenčná charakteristika filtra');
+figure('Name','Úloha 3 - Frekvenčná charakteristika filtra');
 subplot(2,1,1); plot(f,abs(H)); title("Modul kmitočtovej charakteristiky filtra"); xlabel('f'); ylabel('|H(f)|'); grid;
 subplot(2,1,2); plot(f,angle(H)); title("Faza kmitočtovej charakteristiky filtra"); xlabel('f'); ylabel('arg H(f)'); grid;
 
@@ -282,3 +282,17 @@ disp("Dôkaz urobila funkcia hist2 a je vytlačený v predchádzajucej úlohe.")
 disp('Úloha 14');
 disp('R[1]:');
 disp(r12);
+
+
+%% Uloženie obrázkov do súboru
+for i=1:9
+clear name;
+name = ["fig" num2str(i) ".svg"];
+saveas (i, name);
+endfor
+
+for i=1:9
+clear name;
+name = ["fig" num2str(i) ".png"];
+saveas (i, name);
+endfor
