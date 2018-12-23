@@ -28,7 +28,7 @@ disp("Uloha 2");
 % Priemerovanie hodnôt z každých 16 vzoriek
 i = 1;
 j = 1;
-while(i <= N)
+while(i <= N - 16)
   if(mean(s(i:i+16-1)) > 0)
     symbols(j) = 1;
   else
@@ -105,13 +105,13 @@ j = 1;
 shiftedthresh = mean(ssa);
 disp("Modifikovany prah:");
 disp(shiftedthresh);
-while(i <= N)
-  if(mean(ssa(i:i-16-1)) > 0)
+while(i <= length(ssa) - 16)
+  if(mean(ssa(i:i+16-1)) > 0)
     symbols2(j) = 1;
   else
     symbols2(j) = 0;
   endif
-  if(mean(ssa(i:i-16-1)) > shiftedthresh)
+  if(mean(ssa(i:i+16-1)) > shiftedthresh)
     symbols3(j) = 1;
   else
     symbols3(j) = 0;
@@ -122,7 +122,7 @@ endwhile
 
 % Doplnenie symbolov do grafu
 hold on 
-stem(linspace(0.0005,0.0195,20), symbols3(1:20), "r;Symboly z filtrovaneho a posunuteho s[n];");
+stem(linspace(0.0005,0.0195,20), symbols2(1:20), "r;Symboly z filtrovaneho a posunuteho s[n];");
 hold off
 
 %% Úloha 7
@@ -142,17 +142,18 @@ disp("Uloha 8");
 
 % Graf spektier zadaného a posunutého signálu
 figure('Name','Uloha 8');
-fftRes1 = abs(fft(s).*2);
+fftRes1 = abs(fft(s));
 fftRes1 = fftRes1(1:Fs/2);
 subplot(2,1,1); plot(0:Fs/2-1, fftRes1);
 title("Spektrum signálu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
 
-fftRes2 = abs(fft(ss).*2);
+fftRes2 = abs(fft(ss));
 fftRes2 = fftRes2(1:Fs/2);
 subplot(2,1,2); plot(0:Fs/2-1, fftRes2);
 title("Spektrum posunutého signálu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
 
 
+%% Úloha 9
 
 
 
