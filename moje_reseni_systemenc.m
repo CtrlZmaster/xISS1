@@ -154,13 +154,32 @@ title("Spektrum posunutého signálu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
 
 
 %% Úloha 9
+disp("Uloha 9");
+figure('Name','Uloha 9');
 
+hist(s,15,1);
+title("Odhad PDF s[n]"); xlabel("x"); ylabel("Pocet vzoriek"); grid
+xticks(-1:0.1:1);
 
+%% Úloha 10
+disp('Uloha 10');
 
+[cor10, lag10] = xcorr(s, 50, 'biased');
 
+figure('Name','Uloha 10');
+plot(lag10, cor10);
+title("Korelacne koeficienty"); xlabel("k"); ylabel("R[k]"); grid;
 
+%% Úloha 11
+disp('Uloha 11');
 
+disp('R[0]:');
+disp(cor10(51));
 
+disp('R[1]:');
+disp(cor10(52));
 
+disp('R[16]:');
+disp(cor10(67));
 
 
