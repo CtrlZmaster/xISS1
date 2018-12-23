@@ -49,6 +49,17 @@ leg1 = legend("s[n]","Symboly");
 legend(leg1, 'Location','southoutside','Orientation','horizontal');
 hold off
 
+% Overenie zhody so súborom
+fileID = fopen('xpospi95.txt','r');
+formatSpec = '%d';
+file_symbols = fscanf(fileID,formatSpec);
+
+if(sum(xor(symbols, file_symbols)) > 0)
+  disp('Symboly boli dekodovane spravne.');
+else
+  disp('Symboly NEBOLI dekodovane spravne.');
+endif
+
 %% Úloha 3
 disp("Uloha 3");
 % Koeficienty filtra
@@ -157,7 +168,7 @@ title("Spektrum signálu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
 fftRes2 = abs(fft(ss));
 fftRes2 = fftRes2(1:Fs/2);
 subplot(2,1,2); plot(0:Fs/2-1, fftRes2);
-title("Spektrum posunutého signálu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
+title("Spektrum ss[n]"); xlabel("f"); ylabel("s[n]"); grid;
 
 
 %% Úloha 9
@@ -165,7 +176,7 @@ disp("Uloha 9");
 figure('Name','Uloha 9');
 
 hist(s,15,1);
-title("Odhad PDF s[n]"); xlabel("x"); ylabel("Pocet vzoriek"); grid
+title("Odhad PDF s[n]"); xlabel("x"); ylabel("p(x z intervalu, n)"); grid
 xticks(-1:0.1:1);
 
 %% Úloha 10
