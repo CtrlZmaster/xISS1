@@ -41,9 +41,12 @@ endwhile
 % Kreslenie grafu
 figure('Name','Uloha 2');
 plot(linspace(0,0.020,320), s(1:320), "b");
-title("Signal a dekodovane symboly"); xlabel("t"); ylabel("symboly, s[n]"); grid;
+title("Signal a dekodovane symboly"); xlabel("t"); grid;
+
 hold on 
 stem(linspace(0.0005,0.0195,20), symbols(1:20), "g");
+leg1 = legend("s[n]","Symboly");
+legend(leg1, 'Location','southoutside','Orientation','horizontal');
 hold off
 
 %% Úloha 3
@@ -78,6 +81,8 @@ ss = filter(B,A,s);
 figure('Name','Uloha 5');
 plot(linspace(0,0.020,320), s(1:320), "b", linspace(0,0.020,320), ss(1:320), "g");
 title("Rozdiel signalov po filtrovani"); xlabel('t'); grid;
+leg2 = legend("s[n]","ss[n]");
+legend(leg2, 'Location','southoutside','Orientation','horizontal');
 
 % Výpoèet korelaèného koeficientu 
 [cor,lag] = xcorr(ss,s);
@@ -96,7 +101,7 @@ ssa = ss(lagDiff+1:N-lagDiff);
 
 % Vykreslenie všetkých signálov
 figure('Name','Uloha 6');
-plot(linspace(0,0.020,320), s(1:320), "b;s[n];", linspace(0,0.020,320), ss(1:320), "g;Filtrovany s[n];", linspace(0,0.020,320), ssa(1:320), "m;Filtrovany a zarovnany s[n];");
+plot(linspace(0,0.020,320), s(1:320), "b", linspace(0,0.020,320), ss(1:320), "g", linspace(0,0.020,320), ssa(1:320), "m");
 title("Posunutie, filtrovanie a zarovnanie"); xlabel("t"); grid;
 legend('Location','southoutside','Orientation','horizontal');
 % Priemerovanie hodnôt z každých 16 vzoriek
@@ -122,7 +127,9 @@ endwhile
 
 % Doplnenie symbolov do grafu
 hold on 
-stem(linspace(0.0005,0.0195,20), symbols2(1:20), "r;Symboly z filtrovaneho a posunuteho s[n];");
+stem(linspace(0.0005,0.0195,20), symbols2(1:20), "r");
+leg3 = legend("s[n]","ss_{shifted}[n]","Zarovnany ss_{shifted}[n]","Symboly zo zarovnaneho ss_{shifted}[n]");
+legend(leg3, 'Location','southoutside','Orientation','horizontal');
 hold off
 
 %% Úloha 7
@@ -252,6 +259,7 @@ chlieviky = linspace(-1,1,25);
 
 figure('Name','Uloha 12');
 imagesc(chlieviky, chlieviky, p12);
+title("Casovy odhad zdruzenej funkcie hustoty rozdelenia pravdepodobnosti");
 colorbar;
 
 %% Úloha 13
