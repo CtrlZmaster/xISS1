@@ -1,13 +1,13 @@
 % Projekt: ISS Projekt 2018/2019
-% SÃºbor: moje_reseni.m
-% Autor: Michal PospÃ­Å¡il (xpospi95@stud.fit.vutbr.cz)
+% Súbor: moje_reseni.m
+% Autor: Michal Pospíšil (xpospi95@stud.fit.vutbr.cz)
 
 % Loading signal package in Octave
 pkg load signal
 
-%% Ãšloha 1
+%% Úloha 1
 disp("Uloha 1");
-% VÃ½pis informÃ¡cii o sÃºbore 
+% Vıpis informácii o súbore 
 info = audioinfo("xpospi95.wav");
 N = info.TotalSamples;
 Fs = info.SampleRate;
@@ -20,12 +20,12 @@ disp(Fs);
 disp("Trvanie:");
 disp(info.Duration);
 
-% NaÄÃ­tanie signÃ¡lu s
+% Naèítanie signálu s
 s = audioread("xpospi95.wav");
 
-%% Ãšloha 2
+%% Úloha 2
 disp("Uloha 2");
-% Priemerovanie hodnÃ´t z kaÅ¾dÃ½ch 16 vzoriek
+% Priemerovanie hodnôt z kadıch 16 vzoriek
 i = 1;
 j = 1;
 while(i <= N - 16)
@@ -49,7 +49,7 @@ leg1 = legend("s[n]","Symboly");
 legend(leg1, 'Location','southoutside','Orientation','horizontal');
 hold off
 
-% Overenie zhody so sÃºborom
+% Overenie zhody so súborom
 fileID = fopen('xpospi95.txt','r');
 formatSpec = '%d';
 file_symbols = fscanf(fileID,formatSpec);
@@ -60,7 +60,7 @@ else
   disp('Symboly NEBOLI dekodovane spravne.');
 endif
 
-%% Ãšloha 3
+%% Úloha 3
 disp("Uloha 3");
 % Koeficienty filtra
 B = [0.0192 -0.0185 -0.0185 0.0192];
@@ -76,17 +76,17 @@ else
   disp('Filter je nestabilny.')
 endif
 
-%% Ãšloha 4
+%% Úloha 4
 disp("Uloha 4");
-% FrekvenÄnÃ¡ charakteristika
+% Frekvenèná charakteristika
 [H, w] = freqz(B,A,Fs); f = (0:Fs-1)/ Fs * Fs / 2;
 figure('Name','Uloha 3 - Frekvencna charakteristika filtra');
 subplot(2,1,1); plot(f,abs(H)); title("Modul kmitoctovej char. filtra"); xlabel('f'); ylabel('|H(f)|'); grid;
 subplot(2,1,2); plot(f,angle(H)); title("Faza kmitoctovej char. filtra"); xlabel('f'); ylabel('arg H(f)'); grid;
 
-%% Ãšloha 5
+%% Úloha 5
 disp("Uloha 5");
-% Filtrovanie signÃ¡lu
+% Filtrovanie signálu
 ss = filter(B,A,s);
 
 figure('Name','Uloha 5');
@@ -95,27 +95,27 @@ title("Rozdiel signalov po filtrovani"); xlabel('t'); grid;
 leg2 = legend("s[n]","ss[n]");
 legend(leg2, 'Location','southoutside','Orientation','horizontal');
 
-% VÃ½poÄet korelaÄnÃ©ho koeficientu 
+% Vıpoèet korelaèného koeficientu 
 [cor,lag] = xcorr(ss,s);
 
-% VÃ½ber najvyÅ¡Å¡ieho koeficientu, tam sa signÃ¡ly najviac zhodujÃº - sÃº zosynchronizovanÃ© - z MATLAB pomocnej strÃ¡nky
+% Vıber najvyššieho koeficientu, tam sa signály najviac zhodujú - sú zosynchronizované - z MATLAB pomocnej stránky
 [~,I] = max(abs(cor));
 lagDiff = lag(I); 
 timeDiff = lagDiff/Fs;
 disp("Oneskorenie signalu ss [s]:")
 disp(timeDiff);
 
-%% Ãšloha 6
+%% Úloha 6
 disp("Uloha 6");
-% Zarovnanie filtrovanÃ©ho signÃ¡lu
+% Zarovnanie filtrovaného signálu
 ssa = ss(lagDiff+1:N-lagDiff);
 
-% Vykreslenie vÅ¡etkÃ½ch signÃ¡lov
+% Vykreslenie všetkıch signálov
 figure('Name','Uloha 6');
 plot(linspace(0,0.020,320), s(1:320), "b", linspace(0,0.020,320), ss(1:320), "g", linspace(0,0.020,320), ssa(1:320), "m");
 title("Posunutie, filtrovanie a zarovnanie"); xlabel("t"); grid;
 legend('Location','southoutside','Orientation','horizontal');
-% Priemerovanie hodnÃ´t z kaÅ¾dÃ½ch 16 vzoriek
+% Priemerovanie hodnôt z kadıch 16 vzoriek
 i = 1;
 j = 1;
 shiftedthresh = mean(ssa);
@@ -143,9 +143,9 @@ leg3 = legend("s[n]","ss_{shifted}[n]","Zarovnany ss_{shifted}[n]","Symboly zo z
 legend(leg3, 'Location','southoutside','Orientation','horizontal');
 hold off
 
-%% Ãšloha 7
+%% Úloha 7
 disp("Uloha 7");
-% RÃ¡tanie poÄtu nezhÃ´d
+% Rátanie poètu nezhôd
 errs = sum(xor(symbols(1:end-1), symbols2));
 shiftedErrs = sum(xor(symbols(1:end-1), symbols3));
     
@@ -155,15 +155,15 @@ disp(errs/(N/16)*100);
 disp("Chyba pri dekodovani z filtrovanho signalu (posunuty prah) [%]:");
 disp(shiftedErrs/(N/16)*100);
 
-%% Ãšloha 8
+%% Úloha 8
 disp("Uloha 8");
 
-% Graf spektier zadanÃ©ho a posunutÃ©ho signÃ¡lu
+% Graf spektier zadaného a posunutého signálu
 figure('Name','Uloha 8');
 fftRes1 = abs(fft(s));
 fftRes1 = fftRes1(1:Fs/2);
 subplot(2,1,1); plot(0:Fs/2-1, fftRes1);
-title("Spektrum signÃ¡lu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
+title("Spektrum signálu s[n]"); xlabel("f"); ylabel("s[n]"); grid;
 
 fftRes2 = abs(fft(ss));
 fftRes2 = fftRes2(1:Fs/2);
@@ -171,7 +171,7 @@ subplot(2,1,2); plot(0:Fs/2-1, fftRes2);
 title("Spektrum ss[n]"); xlabel("f"); ylabel("s[n]"); grid;
 
 
-%% Ãšloha 9
+%% Úloha 9
 disp("Uloha 9");
 figure('Name','Uloha 9');
 
@@ -179,7 +179,7 @@ hist(s,15,1);
 title("Odhad PDF s[n]"); xlabel("x"); ylabel("p(x z intervalu, n)"); grid;
 xticks(-1:0.1:1);
 
-%% Ãšloha 10
+%% Úloha 10
 disp('Uloha 10');
 
 [cor10, lag10] = xcorr(s, 50, 'biased');
@@ -188,7 +188,7 @@ figure('Name','Uloha 10');
 plot(lag10, cor10);
 title("Korelacne koeficienty"); xlabel("k"); ylabel("R[k]"); grid;
 
-%% Ãšloha 11
+%% Úloha 11
 disp('Uloha 11');
 
 disp('R[0]:');
@@ -200,7 +200,7 @@ disp(cor10(52));
 disp('R[16]:');
 disp(cor10(67));
 
-%% Ãšloha 12
+%% Úloha 12
 disp('Uloha 12');
 
 function [h,p,r] = hist2(y1,y2,x); 
@@ -273,11 +273,11 @@ imagesc(chlieviky, chlieviky, p12);
 title("Casovy odhad zdruzenej funkcie hustoty rozdelenia pravdepodobnosti");
 colorbar;
 
-%% Ãšloha 13
+%% Úloha 13
 disp('Uloha 13');
 disp("Dokaz urobila funkcia hist2 a je vytlaceny v predchadzajucej ulohe.");
 
-%% Ãšloha 14
+%% Úloha 14
 disp('Uloha 14');
 disp('R[1]:');
 disp(r12);
